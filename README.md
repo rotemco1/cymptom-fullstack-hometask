@@ -1,4 +1,4 @@
-![](assets/cymptom_logo.svg)
+![](assets/cymptom_logo_new.svg)
 &nbsp;
 
 # Shopping cart task summary
@@ -55,8 +55,9 @@ For example, if the user types the query "co", all the products matched for this
 
 ## Before starting this task
 
-- Fork this repository ([https://github.com/cymptomlabs/fullstack-task](https://github.com/cymptomlabs/fullstack-task)).
-- Send a link to the forked github repository to: itamar@cymptom.com .
+- DO NOT FORK THIS REPOSITORY.
+- Clone this repository, open up your own repository on GitHub and change the remote to your new repository (`git remote set-url origin YOUR_REPOSITORY_URL`). This will allow you to push to your own repository instead of Cymptom.
+- Send a link to your new github repository to: shay@cymptom.com.
 
 **Good luck!**
 
