@@ -1,0 +1,30 @@
+{
+  "name": "cymptom-fullstack-hometask",
+  "version": "1.0.0",
+  "description": "cymptom fullstack hometask",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node out/index.js",
+    "debug": "nodemon --ignore angular-src --exec ./node_modules/.bin/ts-node -- ./src/index.ts -debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rotemco1/cymptom-fullstack-hometask.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rotemco1/cymptom-fullstack-hometask/issues"
+  },
+  "homepage": "https://github.com/rotemco1/cymptom-fullstack-hometask#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nodemon": "^1.12.1",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.1",
+    "@types/node": "^8.10.59"
+  }
+}
