@@ -9,7 +9,7 @@ export class ShopService {
     constructor(private readonly http: HttpClient) { }
 
     private getEndpoint(): string {
-        return `${environment.serverUrl}/api/shop`
+        return `${environment.serverUrl}/api`
     }
 
     getItemsByFilter(filter: string): Observable<Item[]> {

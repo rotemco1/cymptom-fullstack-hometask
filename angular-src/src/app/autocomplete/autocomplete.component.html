@@ -1,4 +1,4 @@
-<input type="text" [(ngModel)]="filterText" name="filterText" (keydown)="fetchFilteredItems()">
+<input type="text" [(ngModel)]="filterText" (keyup)="fetchFilteredItems()">
 <div *ngIf="filterText">
     <span *ngFor="let item of items">{{item.name}}</span>
 </div>
