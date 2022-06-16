@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ShopComponent } from './shop/shop.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ShopService } from './services/shop.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ShopService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

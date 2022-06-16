@@ -8,7 +8,7 @@ import { environment } from "../../environments/environment";
 export class ShopService {
     constructor(private readonly http: HttpClient) { }
 
-    getEndpoint(): string {
+    private getEndpoint(): string {
         return `${environment.serverUrl}/api/shop`
     }
 

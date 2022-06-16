@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Item } from '../../../../shared/interfaces'
 
 @Component({
@@ -9,7 +9,10 @@ import { Item } from '../../../../shared/interfaces'
 export class AutocompleteComponent implements OnInit {
 
   @Input()
-  readonly items: Item[] = []
+  items: Item[] = [];
+
+  @Output()
+  filteredItems: EventEmitter<string> = new EventEmitter<string>();
 
   cart: Item[] = [];
   filterText = '';
@@ -17,6 +20,10 @@ export class AutocompleteComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  fetchFilteredItems(): void {
+    this.filteredItems.emit(this.filterText);
   }
 
 }
