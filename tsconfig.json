@@ -6,7 +6,8 @@
       "outDir": "out",           
       "sourceMap": true,
       "experimentalDecorators": true,
-      "strict": false
+      "strict": false,
+      "resolveJsonModule": true
     },
     "exclude": [
       "angular-src",

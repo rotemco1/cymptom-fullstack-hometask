@@ -1,5 +1,5 @@
 import * as express from 'express';
-import routes from './api/api.route';
+import routes from './api/shop.route';
 
 export class App {
     public express: express.Application;
