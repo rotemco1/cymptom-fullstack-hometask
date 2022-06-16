@@ -14,6 +14,9 @@ export class AutocompleteComponent implements OnInit {
   @Output()
   filteredItems: EventEmitter<string> = new EventEmitter<string>();
 
+  @Output()
+  selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
+
   cart: Item[] = [];
   filterText = '';
   currentFocus: number = -1;
@@ -28,6 +31,6 @@ export class AutocompleteComponent implements OnInit {
   }
 
   onSelect(selectedItem: any) {
-    this.cart.push(selectedItem)
+    this.selectedItem.emit(this.items.find(item => item.id == selectedItem.target.value) as Item)
   }
 }

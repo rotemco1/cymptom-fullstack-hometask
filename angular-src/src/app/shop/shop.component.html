@@ -1,1 +1,2 @@
-<app-autocomplete [items]="(filteredItems$| async)!" (filteredItems)="fetchItemsByFilter($event)"></app-autocomplete>
+<app-autocomplete [items]="(filteredItems$| async)!" (filteredItems)="fetchItemsByFilter($event)" 
+(selectedItem)="addToCart($event)"></app-autocomplete>
