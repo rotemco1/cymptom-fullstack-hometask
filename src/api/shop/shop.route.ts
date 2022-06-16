@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import * as items from '../shop.json'
+import * as items from './shop.json'
 
 
 const router = Router();

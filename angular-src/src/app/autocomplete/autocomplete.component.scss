@@ -1,0 +1,11 @@
+.autocomplete-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.items-options {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+}

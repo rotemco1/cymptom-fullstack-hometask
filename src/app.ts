@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { addHeaders } from './api/middlewares/headers';
-import routes from './api/shop.route';
+import routes from './api/app.route';
 
 export class App {
     public express: express.Application;
@@ -11,7 +11,7 @@ export class App {
     }
 
     init(port: string | number) {
-        this.express = express();
+         this.express = express();
         this.express.use(addHeaders);
         this.express.use('/api', this.routes);
 

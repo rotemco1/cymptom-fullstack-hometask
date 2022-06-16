@@ -16,6 +16,7 @@ export class AutocompleteComponent implements OnInit {
 
   cart: Item[] = [];
   filterText = '';
+  currentFocus: number = -1;
 
   constructor() { }
 
@@ -26,4 +27,7 @@ export class AutocompleteComponent implements OnInit {
     this.filteredItems.emit(this.filterText);
   }
 
+  onSelect(selectedItem: any) {
+    this.cart.push(selectedItem)
+  }
 }

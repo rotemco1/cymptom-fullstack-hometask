@@ -1,5 +1,11 @@
-<input type="text" [(ngModel)]="filterText" (keyup)="fetchFilteredItems()">
-<div *ngIf="filterText">
-    <span *ngFor="let item of items">{{item.name}}</span>
+<div class="autocomplete-container">
+    <input type="text" list="items-list" [(ngModel)]="filterText" (keyup)="fetchFilteredItems()" (change)="onSelect($event)">
+    <div>
+        <datalist id="items-list" *ngIf="filterText">
+            <option *ngFor="let item of items" [value]="item.id" class="items-options">{{item.name}}</option>
+        </datalist>
+        <div *ngIf="filterText && !items?.length">
+            No items to show
+        </div>
+    </div>
 </div>
-
