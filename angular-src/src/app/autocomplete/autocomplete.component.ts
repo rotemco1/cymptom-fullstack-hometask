@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Item } from '../../../../shared/interfaces'
 
 @Component({
   selector: 'app-autocomplete',
@@ -7,19 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AutocompleteComponent implements OnInit {
 
-  items = [{
-    id: 1,
-    name: "shirt"
-  },{
-    id: 2,
-    name: "jeans"
-  },{
-    id: 3,
-    name: "dress"
-  }];
+  @Input()
+  readonly items: Item[] = []
 
-  cart: {id: number, name: string}[] = [];
-  filterText= '';
+  cart: Item[] = [];
+  filterText = '';
 
   constructor() { }
 
