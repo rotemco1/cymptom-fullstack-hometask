@@ -1,0 +1,5 @@
+<input type="text" [(ngModel)]="filterText">
+<div *ngIf="filterText">
+    <span *ngFor="let item of items">{{item.name}}</span>
+</div>
+
