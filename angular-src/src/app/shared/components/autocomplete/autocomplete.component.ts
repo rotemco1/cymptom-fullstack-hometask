@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { Item } from '../../../../shared/interfaces'
+import { Item } from '../../../../../../shared/interfaces';
+
 
 @Component({
   selector: 'app-autocomplete',

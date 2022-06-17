@@ -13,6 +13,7 @@ export class ShopComponent implements OnInit {
 
   searchedItems$ = new BehaviorSubject('');
   filteredItems$: Observable<Item[]> = new Observable<Item[]>;
+  cart: Item[] = [];
 
   constructor(private readonly shopService: ShopService) { }
 
@@ -34,6 +35,6 @@ export class ShopComponent implements OnInit {
   }
 
   addToCart(item: Item) {
-
+    this.cart.push(item);
   }
 }
