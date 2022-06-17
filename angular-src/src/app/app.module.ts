@@ -8,12 +8,14 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ShopComponent } from './shop/shop.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShopService } from './services/shop.service';
+import { FocusedDirective } from './directives/focused.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     AutocompleteComponent,
-    ShopComponent
+    ShopComponent,
+    FocusedDirective
   ],
   imports: [
     BrowserModule,

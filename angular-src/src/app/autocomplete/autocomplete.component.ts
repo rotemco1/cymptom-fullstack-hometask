@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Item } from '../../../../shared/interfaces'
 
 @Component({
@@ -17,13 +17,22 @@ export class AutocompleteComponent implements OnInit {
   @Output()
   selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
 
-  cart: Item[] = [];
   filterText = '';
-  currentFocus: number = -1;
+  focusedIndex = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  @HostListener("document:keyup", ['$event'])
+  checkNavigation(event: KeyboardEvent): void {
+    if (event.code == "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
+    else if (event.code == "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
+    else {
+      this.fetchFilteredItems();
+      this.focusedIndex = 0;
+    }
   }
 
   fetchFilteredItems(): void {
@@ -31,6 +40,6 @@ export class AutocompleteComponent implements OnInit {
   }
 
   onSelect(selectedItem: any) {
-    this.selectedItem.emit(this.items.find(item => item.id == selectedItem.target.value) as Item)
+    this.selectedItem.emit(this.items.find(item => item.sku == selectedItem.target.value) as Item)
   }
 }

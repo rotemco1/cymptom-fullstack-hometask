@@ -1,11 +1,21 @@
 .autocomplete-container {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 30%;
+    margin: 2%;
 }
 
-.items-options {
-    display: flex;
-    flex-direction: column;
+.autocomplete-input {
+    border-radius: 8px;
     border: 1px solid lightgray;
+    padding: 5px;
+}
+
+.items-list-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.focused-item {
+    background-color: lightgray;
 }

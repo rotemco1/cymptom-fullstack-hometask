@@ -1,11 +1,13 @@
 <div class="autocomplete-container">
-    <input type="text" list="items-list" [(ngModel)]="filterText" (keyup)="fetchFilteredItems()" (change)="onSelect($event)">
-    <div>
-        <datalist id="items-list" *ngIf="filterText">
-            <option *ngFor="let item of items" [value]="item.id" class="items-options">{{item.name}}</option>
-        </datalist>
-        <div *ngIf="filterText && !items?.length">
-            No items to show
+    <input type="text" list="items-list" [(ngModel)]="filterText" (change)="onSelect($event)" class="autocomplete-input"
+        placeholder="Search for products">
+    <div *ngIf="filterText" class="items-list-container">
+        <div *ngFor="let item of items; let i=index" [appFocused]="i===focusedIndex"
+            [ngClass]="{'focused-item': focusedIndex === i  }">
+            {{item.name}}
         </div>
+    </div>
+    <div *ngIf="!items?.length && filterText">
+        No items to show
     </div>
 </div>
