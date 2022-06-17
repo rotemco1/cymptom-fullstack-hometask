@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Item } from '../../../../../shared/interfaces';
 
 @Component({
@@ -15,4 +15,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  removeFromCart(itemToRemove: Item) {
+    this.cart = this.cart.filter(item => item !== itemToRemove)
+  }
 }

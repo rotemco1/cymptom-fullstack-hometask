@@ -11,7 +11,7 @@
                 <td><img [src]="item.image" class="item-image"></td>
                 <td class="item-name">{{item.name}}</td>
                 <td class="item-price">{{item.price}}</td>
-                <td class="item-delete"><button>delete</button></td>
+                <td class="item-delete"><div class="remove-item" (click)="removeFromCart(item)">Remove</div></td>
             </tr>
         </tbody>
     </table>

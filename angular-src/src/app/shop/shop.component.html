@@ -4,6 +4,6 @@
             (selectedItem)="addToCart($event)"></app-autocomplete>
     </div>
     <div class="cart-container">
-        <app-cart *ngIf="cart.length" [cart]="cart"></app-cart>
+        <app-cart [cart]="cart"></app-cart>
     </div>
 </div>

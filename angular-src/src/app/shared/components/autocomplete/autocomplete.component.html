@@ -5,12 +5,9 @@
         <div *ngFor="let item of items; let i = index" [appFocused]="i === focusedIndex"
             [ngClass]="{'focused-item': focusedIndex === i  }" (mouseover)="focusedIndex = i" (click)="onSelect(item)">
             <div class="list-item">
-            <img [src]="item.image" class="item-image">
-            <label class="item-name">{{item.name}}</label>
+                <img [src]="item.image" class="item-image">
+                <label class="item-name">{{item.name}}</label>
+            </div>
         </div>
-        </div>
-    </div>
-    <div *ngIf="checkItems()">
-        No items to show
     </div>
 </div>
