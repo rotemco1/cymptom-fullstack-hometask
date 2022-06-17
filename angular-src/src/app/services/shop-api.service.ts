@@ -5,7 +5,7 @@ import { Item } from "../../../../shared/interfaces";
 import { environment } from "../../environments/environment";
 
 @Injectable()
-export class ShopService {
+export class ShopApiService {
     constructor(private readonly http: HttpClient) { }
 
     private getEndpoint(): string {

@@ -12,5 +12,5 @@ export class FocusedDirective {
     }
   }
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private readonly elementRef: ElementRef) { }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, takeUntil, skip } from 'rxjs/operators'
+import { skip, switchMap, takeUntil } from 'rxjs/operators';
 import { Item } from '../../../../shared/interfaces';
-import { ShopService } from '../services/shop.service';
+import { CartService } from '../services/cart.service';
+import { ShopApiService } from '../services/shop-api.service';
 
 @Component({
   selector: 'app-shop',
@@ -13,9 +14,9 @@ export class ShopComponent implements OnInit {
 
   searchedItems$ = new BehaviorSubject('');
   filteredItems$: Observable<Item[]> = new Observable<Item[]>;
-  cart: Item[] = [];
 
-  constructor(private readonly shopService: ShopService) { }
+  constructor(private readonly shopApiService: ShopApiService,
+    private readonly cartService: CartService) { }
 
   ngOnInit(): void {
   }
@@ -24,7 +25,7 @@ export class ShopComponent implements OnInit {
     this.searchedItems$.next(filter);
     this.filteredItems$ = this.searchedItems$.pipe(
       switchMap(() =>
-        this.shopService.getItemsByFilter(filter)
+        this.shopApiService.getItemsByFilter(filter)
           .pipe(
             takeUntil(
               this.searchedItems$.pipe(skip(1))
@@ -35,6 +36,6 @@ export class ShopComponent implements OnInit {
   }
 
   addToCart(item: Item) {
-    this.cart.push(item);
+    this.cartService.addToCart(item);
   }
 }

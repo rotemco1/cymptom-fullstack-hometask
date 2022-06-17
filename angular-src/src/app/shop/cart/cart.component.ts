@@ -1,25 +1,21 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../../../shared/interfaces';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit, OnChanges {
+export class CartComponent implements OnInit {
+  cart: Item[] = [];
 
-  @Input() cart: Item[] = [];
-
-  constructor() { }
+  constructor(public readonly cartService: CartService) { }
 
   ngOnInit(): void {
   }
-  
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
 
-  removeFromCart(itemToRemove: Item) {
-    this.cart = this.cart.filter(item => item !== itemToRemove)
+  removeFromCart(item: Item) {
+    this.cartService.removeFromCart(item);
   }
 }

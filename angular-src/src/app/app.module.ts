@@ -6,11 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ShopService } from './services/shop.service';
+import { ShopApiService } from './services/shop-api.service';
 import { FocusedDirective } from './directives/focused.directive';
 import { AutocompleteComponent } from './shared/components/autocomplete/autocomplete.component';
 import { CartComponent } from './shop/cart/cart.component';
 import { DefaultImageComponent } from './shared/components/default-image/default-image.component';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DefaultImageComponent } from './shared/components/default-image/default
     HttpClientModule
   ],
   providers: [
-    ShopService
+    ShopApiService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

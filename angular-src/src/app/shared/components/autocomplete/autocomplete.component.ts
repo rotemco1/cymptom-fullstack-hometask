@@ -26,18 +26,21 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener("document:keyup", ['$event'])
+  @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
     else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
-    else if (event.code == "Escape") {
-      this.filterText = '';
-      this.focusedIndex = 0;
-    }
+    else if (event.code === "Enter") this.onSelect(this.items[this.focusedIndex]);
+    else if (event.code == "Escape") this.resetSearch();
     else {
-      event.code === "Enter"? this.onSelect(this.items[this.focusedIndex]): this.focusedIndex = 0;
+      this.focusedIndex = 0;
       this.fetchFilteredItems();
     }
+  }
+
+  resetSearch() {
+    this.filterText = '';
+    this.focusedIndex = 0;
   }
 
   fetchFilteredItems(): void {
