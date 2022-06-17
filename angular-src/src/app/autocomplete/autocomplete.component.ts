@@ -27,9 +27,12 @@ export class AutocompleteComponent implements OnInit {
 
   @HostListener("document:keyup", ['$event'])
   checkNavigation(event: KeyboardEvent): void {
-    if (event.code == "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
-    else if (event.code == "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
+    if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
+    else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
     else {
+      if(event.code === "Enter") {
+        this.onSelect(this.items[this.focusedIndex]);
+      }
       this.fetchFilteredItems();
       this.focusedIndex = 0;
     }
@@ -39,7 +42,7 @@ export class AutocompleteComponent implements OnInit {
     this.filteredItems.emit(this.filterText);
   }
 
-  onSelect(selectedItem: any) {
-    this.selectedItem.emit(this.items.find(item => item.sku == selectedItem.target.value) as Item)
+  onSelect(selectedItem: Item) {
+    this.selectedItem.emit(selectedItem)
   }
 }

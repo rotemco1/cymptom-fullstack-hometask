@@ -1,9 +1,9 @@
 <div class="autocomplete-container">
-    <input type="text" list="items-list" [(ngModel)]="filterText" (change)="onSelect($event)" class="autocomplete-input"
+    <input type="text" list="items-list" [(ngModel)]="filterText" class="autocomplete-input"
         placeholder="Search for products">
     <div *ngIf="filterText" class="items-list-container">
-        <div *ngFor="let item of items; let i=index" [appFocused]="i===focusedIndex"
-            [ngClass]="{'focused-item': focusedIndex === i  }">
+        <div *ngFor="let item of items; let i = index" [appFocused]="i === focusedIndex"
+            [ngClass]="{'focused-item': focusedIndex === i  }" (mouseover)="focusedIndex = i" (click)="onSelect(item)">
             {{item.name}}
         </div>
     </div>
