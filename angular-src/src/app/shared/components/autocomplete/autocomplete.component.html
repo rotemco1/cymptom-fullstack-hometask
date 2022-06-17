@@ -10,7 +10,7 @@
         </div>
         </div>
     </div>
-    <div *ngIf="!items?.length && filterText">
+    <div *ngIf="checkItems()">
         No items to show
     </div>
 </div>

@@ -1,3 +1,9 @@
-<app-autocomplete [items]="(filteredItems$| async)!" (filteredItems)="fetchItemsByFilter($event)" 
-(selectedItem)="addToCart($event)"></app-autocomplete>
-<app-cart *ngIf="cart.length" [cart]="cart"></app-cart>
+<div class="shop-container">
+    <div class="autocomplete-container">
+        <app-autocomplete [items]="(filteredItems$| async)!" (filteredItems)="fetchItemsByFilter($event)"
+            (selectedItem)="addToCart($event)"></app-autocomplete>
+    </div>
+    <div class="cart-container">
+        <app-cart *ngIf="cart.length" [cart]="cart"></app-cart>
+    </div>
+</div>

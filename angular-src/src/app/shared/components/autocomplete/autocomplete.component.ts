@@ -46,4 +46,8 @@ export class AutocompleteComponent implements OnInit {
   onSelect(selectedItem: Item) {
     this.selectedItem.emit(selectedItem)
   }
+
+  checkItems() {
+    setTimeout(() => !this.items?.length && this.filterText, 10)
+  }
 }

@@ -1,16 +1,18 @@
-<table>
-    <thead>
-        <th></th>
-        <th>Name</th>
-        <th>Price</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of cart">
-            <td><img [src]="item.image" class="item-image"></td>
-            <td>{{item.name}}</td>
-            <td>{{item.price}}</td>
-            <td><button>delete</button></td>
-        </tr>
-    </tbody>
-</table>
+<div class="cart-container">
+    <table class="cart-table">
+        <thead>
+            <th class="item-image"></th>
+            <th class="item-name">Name</th>
+            <th class="item-price">Price</th>
+            <th class="item-delete"></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of cart">
+                <td><img [src]="item.image" class="item-image"></td>
+                <td class="item-name">{{item.name}}</td>
+                <td class="item-price">{{item.price}}</td>
+                <td class="item-delete"><button>delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
