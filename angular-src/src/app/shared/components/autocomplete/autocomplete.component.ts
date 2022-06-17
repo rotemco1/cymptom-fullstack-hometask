@@ -35,11 +35,8 @@ export class AutocompleteComponent implements OnInit {
       this.focusedIndex = 0;
     }
     else {
-      if(event.code === "Enter") {
-        this.onSelect(this.items[this.focusedIndex]);
-      }
+      event.code === "Enter"? this.onSelect(this.items[this.focusedIndex]): this.focusedIndex = 0;
       this.fetchFilteredItems();
-      this.focusedIndex = 0;
     }
   }
 

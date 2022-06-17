@@ -1,9 +1,7 @@
 .cart-container {
     position: absolute;
     top: 15%;
-    bottom: 85%;
-    max-height: 800px;
-    overflow-y: auto;
+    width: 90%;
 }
 
 .cart-table {
@@ -21,6 +19,27 @@ tr:nth-child(odd) {
 
 td {
     align-self: center;
+}
+
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead {
+    width: calc(100% - 1em)
+}
+
+table {
+    width: 90%;
+}
+
+.cart-items {
+    display: block;
+    overflow-y: auto;
+    max-height: 400px;
 }
 
 .item-name {
