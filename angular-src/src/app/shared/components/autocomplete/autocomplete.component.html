@@ -5,7 +5,7 @@
         <div *ngFor="let item of items; let i = index" [appFocused]="i === focusedIndex"
             [ngClass]="{'focused-item': focusedIndex === i  }" (mouseover)="focusedIndex = i" (click)="onSelect(item)">
             <div class="list-item">
-                <img [src]="item.image" class="item-image">
+                <app-default-image [src]="item.image"></app-default-image>
                 <label class="item-name">{{item.name}}</label>
             </div>
         </div>

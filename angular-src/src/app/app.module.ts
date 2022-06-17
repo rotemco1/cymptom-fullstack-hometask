@@ -10,6 +10,7 @@ import { ShopService } from './services/shop.service';
 import { FocusedDirective } from './directives/focused.directive';
 import { AutocompleteComponent } from './shared/components/autocomplete/autocomplete.component';
 import { CartComponent } from './shop/cart/cart.component';
+import { DefaultImageComponent } from './shared/components/default-image/default-image.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CartComponent } from './shop/cart/cart.component';
     AutocompleteComponent,
     ShopComponent,
     FocusedDirective,
-    CartComponent
+    CartComponent,
+    DefaultImageComponent
   ],
   imports: [
     BrowserModule,

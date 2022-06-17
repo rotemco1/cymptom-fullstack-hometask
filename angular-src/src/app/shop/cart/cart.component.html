@@ -8,7 +8,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of cart">
-                <td><img [src]="item.image" class="item-image"></td>
+                <td><app-default-image [src]="item.image"></app-default-image></td>
                 <td class="item-name">{{item.name}}</td>
                 <td class="item-price">{{item.price}}</td>
                 <td class="item-delete"><div class="remove-item" (click)="removeFromCart(item)">Remove</div></td>
