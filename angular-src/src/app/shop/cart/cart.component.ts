@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Item } from '../../../../../shared/interfaces';
 
 @Component({
@@ -6,13 +6,17 @@ import { Item } from '../../../../../shared/interfaces';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnChanges {
 
   @Input() cart: Item[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
 
   removeFromCart(itemToRemove: Item) {

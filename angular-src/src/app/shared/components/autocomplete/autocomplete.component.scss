@@ -22,19 +22,15 @@
 
 .focused-item {
     background-color: lightgray;
-    cursor: pointer;
-}
-
-.unfocused-item {
-    background-color: #fff;
-    cursor: pointer;
 }
 
 .list-item {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
+}
 
-    .item-name {
-        align-self: center;
-    }
+.item-name {
+    align-self: center;
+    cursor: pointer;
 }
