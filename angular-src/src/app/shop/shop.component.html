@@ -1,9 +1,5 @@
 <div class="shop-container">
-    <div class="autocomplete-container">
-        <app-autocomplete [items]="(filteredItems$| async)!" (filteredItems)="fetchItemsByFilter($event)"
-            (selectedItem)="addToCart($event)"></app-autocomplete>
-    </div>
-    <div class="cart-container">
-        <app-cart [cart]="cart"></app-cart>
-    </div>
+    <app-autocomplete [items]="(filteredItems$| async)!" (filteredItems)="fetchItemsByFilter($event)"
+        (selectedItem)="addToCart($event)"></app-autocomplete>
+    <app-cart [cart]="cart"></app-cart>
 </div>

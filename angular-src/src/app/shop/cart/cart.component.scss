@@ -1,5 +1,9 @@
 .cart-container {
-    margin-left: 5%;
+    position: absolute;
+    top: 15%;
+    bottom: 85%;
+    max-height: 800px;
+    overflow-y: auto;
 }
 
 .cart-table {

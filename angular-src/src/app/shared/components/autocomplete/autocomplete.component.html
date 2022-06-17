@@ -3,7 +3,7 @@
         placeholder="Search for products">
     <div *ngIf="filterText" class="items-list-container">
         <div *ngFor="let item of items; let i = index" [appFocused]="i === focusedIndex"
-            [ngClass]="{'focused-item': focusedIndex === i  }" (mouseover)="focusedIndex = i" (click)="onSelect(item)">
+            [ngClass]="{'focused-item': focusedIndex === i, 'unfocused-item': focusedIndex !== i  }" (mouseover)="focusedIndex = i" (click)="onSelect(item)">
             <div class="list-item">
                 <app-default-image [src]="item.image"></app-default-image>
                 <label class="item-name">{{item.name}}</label>

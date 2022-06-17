@@ -30,6 +30,10 @@ export class AutocompleteComponent implements OnInit {
   checkNavigation(event: KeyboardEvent): void {
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
     else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
+    else if (event.code == "Escape") {
+      this.filterText = '';
+      this.focusedIndex = 0;
+    }
     else {
       if(event.code === "Enter") {
         this.onSelect(this.items[this.focusedIndex]);

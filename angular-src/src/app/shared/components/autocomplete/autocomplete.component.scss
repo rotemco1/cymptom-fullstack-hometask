@@ -1,6 +1,7 @@
 .autocomplete-container {
     display: flex;
     flex-direction: column;
+    width: 30%;
 }
 
 .autocomplete-input {
@@ -13,11 +14,16 @@
 .items-list-container {
     max-height: 300px;
     overflow-y: auto;
+    z-index: 1;
 }
 
 .focused-item {
     background-color: lightgray;
     cursor: pointer;
+}
+
+.unfocused-item {
+    background-color: #fff;
 }
 
 .list-item {
