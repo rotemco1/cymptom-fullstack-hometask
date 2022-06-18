@@ -8,12 +8,12 @@ export class CartService {
 
     constructor() { }
 
-    get cart() {
+    get cart(): Item[] {
         return this._cart;
     }
 
-    get totalPrice() {
-        return this._totalPrice.toFixed(2);
+    get totalPrice(): number {
+        return +this._totalPrice.toFixed(2);
     }
 
     addToCart(item: Item) {
