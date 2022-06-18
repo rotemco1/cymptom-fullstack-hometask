@@ -35,7 +35,7 @@ export class ShopComponent implements OnInit {
     );
   }
 
-  addToCart(item: Item) {
+  addToCart(item: Item): void {
     this.cartService.addToCart(item);
   }
 }
