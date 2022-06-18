@@ -7,12 +7,21 @@
 .total-price-container {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+}
+
+.total-price-title {
+    font-weight: bold;
+    padding-right: 10px;
 }
 
 .cart-table {
     border: 1px solid lightgray;
     border-radius: 8px;
+}
+
+th {
+    text-align: left;
 }
 
 tr:nth-child(odd) {

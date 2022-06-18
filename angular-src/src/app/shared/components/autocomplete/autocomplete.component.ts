@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -18,6 +18,8 @@ export class AutocompleteComponent implements OnInit {
   @Output()
   selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
 
+  @ViewChild('autocompleteList') autocompleteList!: ElementRef;
+
   filterText = '';
   focusedIndex = 0;
 
@@ -26,11 +28,18 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener("document:click", ["$event"])
+  clickOutside(event: MouseEvent): void {
+    if (event.target !== this.autocompleteList.nativeElement) {
+      this.resetSearch();
+    }
+  }
+
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
     else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
-    else if (event.code === "Enter" || event.code ==="NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
+    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
     else if (event.code === "Escape") this.resetSearch();
     else {
       this.focusedIndex = 0;
