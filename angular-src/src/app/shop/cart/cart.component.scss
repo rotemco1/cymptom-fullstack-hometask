@@ -1,16 +1,12 @@
 .cart-container {
     position: absolute;
-    top: 15%;
+    top: 20%;
     width: 90%;
 }
 
 .cart-table {
     border: 1px solid lightgray;
     border-radius: 8px;
-}
-
-th {
-    text-align: left;
 }
 
 tr:nth-child(odd) {
@@ -26,14 +22,6 @@ tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
-}
-
-thead {
-    width: calc(100% - 1em)
-}
-
-table {
-    width: 90%;
 }
 
 .cart-items {

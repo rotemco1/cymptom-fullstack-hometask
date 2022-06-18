@@ -12,6 +12,7 @@ import { AutocompleteComponent } from './shared/components/autocomplete/autocomp
 import { CartComponent } from './shop/cart/cart.component';
 import { DefaultImageComponent } from './shared/components/default-image/default-image.component';
 import { CartService } from './services/cart.service';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CartService } from './services/cart.service';
     ShopComponent,
     FocusedDirective,
     CartComponent,
-    DefaultImageComponent
+    DefaultImageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

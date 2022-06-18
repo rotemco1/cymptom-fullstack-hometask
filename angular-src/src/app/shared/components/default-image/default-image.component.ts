@@ -9,6 +9,8 @@ export class DefaultImageComponent implements OnInit {
   readonly defaultImage: string = '../../../../assets/cymptom_logo.svg';
 
   @Input() src: string = '';
+  @Input() width: number = 20;
+  @Input() height: number = 20;
 
   constructor() { }
 
