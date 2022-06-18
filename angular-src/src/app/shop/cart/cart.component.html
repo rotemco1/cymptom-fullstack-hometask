@@ -1,4 +1,8 @@
 <div class="cart-container">
+    <div class="total-price-container">
+        <label>Total price: </label>
+        <span calss="total-price">{{cartService.totalPrice}}</span>
+    </div>
     <table class="cart-table">
         <thead>
             <th class="item-image"></th>
@@ -8,10 +12,14 @@
         </thead>
         <tbody class="cart-items custom-scrollbar">
             <tr *ngFor="let item of cartService.cart">
-                <td><app-default-image [src]="item.image"></app-default-image></td>
+                <td>
+                    <app-default-image [src]="item.image"></app-default-image>
+                </td>
                 <td class="item-name">{{item.name}}</td>
                 <td class="item-price">{{item.price}}</td>
-                <td class="item-delete"><div class="remove-item" (click)="removeFromCart(item)">Remove</div></td>
+                <td class="item-delete">
+                    <div class="remove-item" (click)="removeFromCart(item)">Remove</div>
+                </td>
             </tr>
         </tbody>
     </table>
