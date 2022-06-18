@@ -1,12 +1,13 @@
 import { Router, Request, Response, NextFunction } from "express";
-import * as items from './shop.json'
 
 const router = Router();
+
+import shopController from "./shop.controller";
 
 router.route("/")
     .get(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            res.status(200).json(items.filter(item => item.name.includes(req.query.filter.toString())));
+            res.status(200).json(await shopController.productsByFilter(req.query.filter.toString()));
         } catch (err) {
             next(err);
         }

@@ -5,7 +5,7 @@ export interface Item {
     price: number;
     upc: string;
     category: {id: string; name: string}[];
-    shipping: number;
+    shipping: string | number;
     description: string;
     manufacturer: string;
     model: string;
