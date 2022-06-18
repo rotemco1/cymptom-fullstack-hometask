@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { skip, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, skip, switchMap, takeUntil } from 'rxjs/operators';
 import { Item } from '../../../../shared/interfaces';
 import { CartService } from '../services/cart.service';
 import { ShopApiService } from '../services/shop-api.service';
@@ -24,6 +24,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   fetchItemsByFilter(filter: string): void {
     this.searchedItems$.next(filter);
     this.filteredItems$ = this.searchedItems$.pipe(
+      debounceTime(1000),
       switchMap(() =>
         this.shopApiService.getItemsByFilter(filter)
           .pipe(

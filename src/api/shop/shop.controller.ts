@@ -1,11 +1,11 @@
 import { Item } from '../../../shared/interfaces';
-import * as products from './shop.json'
+import * as products from '../../../assets/products.json';
 
 export class ShopController {
     constructor() { }
 
     public async productsByFilter(filter: string): Promise<Item[]> {
-        return products.filter(item => item.name.includes(filter));
+        return (products as Item[]).filter(item => (item.name || '').toLowerCase().includes(filter.toLowerCase()));
     }
 }
 
