@@ -1,16 +1,20 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss']
+  styleUrls: ['./autocomplete.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit, OnChanges {
 
   @Input()
   items: Item[] = [];
+
+  @Input()
+  rowHeight: number = 30;
 
   @Output()
   filteredItems: EventEmitter<string> = new EventEmitter<string>();
@@ -18,25 +22,38 @@ export class AutocompleteComponent implements OnInit {
   @Output()
   selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
 
-  @ViewChild('autocompleteList') autocompleteList!: ElementRef;
+  @ViewChild('autocompleteList')
+  autocompleteList: any;
 
-  filterText = '';
-  focusedIndex = 0;
+  itemsInView: Item[] = [];
+  startIndex: number = 0;
+  endIndex: number = 0;
+  filterText: string = '';
+  focusedIndex: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.render();
   }
 
-  @HostListener("document:click", ["$event"])
-  clickOutside(event: MouseEvent): void {
-    if (event.target !== this.autocompleteList.nativeElement) {
-      this.resetSearch();
+  ngOnChanges(): void {
+    this.render();
+  }
+
+  render(): void {
+    let scrollTop = this.autocompleteList?.nativeElement.scrollTop;
+    let height = this.autocompleteList?.nativeElement.clientHeight;
+    this.startIndex = Math.floor(scrollTop / this.rowHeight);
+    this.endIndex = Math.ceil((scrollTop + height) / this.rowHeight);
+    if (this.items) {
+      this.itemsInView = this.items.slice(this.startIndex, this.endIndex);
     }
   }
 
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
+    this.render();
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
     else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
     else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
