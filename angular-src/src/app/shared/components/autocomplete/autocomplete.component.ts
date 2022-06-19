@@ -52,15 +52,16 @@ export class AutocompleteComponent implements OnInit, OnChanges {
 
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
-    this.render();
-    if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
-    else if (event.code === "ArrowDown" && this.focusedIndex < this.itemsInView.length - 1) this.focusedIndex++;
+    
+    if (event.code === "ArrowDown") this.autocompleteList.nativeElement.scrollTop += this.rowHeight;
+    else if (event.code === "ArrowUp")this.autocompleteList.nativeElement.scrollTop -= this.rowHeight;
     else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.itemsInView[this.focusedIndex]);
     else if (event.code === "Escape") this.resetSearch();
     else {
       this.focusedIndex = 0;
       this.fetchFilteredItems();
     }
+    this.render();
   }
 
   resetSearch() {
