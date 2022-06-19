@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -7,10 +7,13 @@ import { Item } from '../../../../../../shared/interfaces';
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit, OnChanges {
 
   @Input()
   items: Item[] = [];
+
+  @Input()
+  rowHeight: number = 30;
 
   @Output()
   filteredItems: EventEmitter<string> = new EventEmitter<string>();
@@ -18,33 +21,55 @@ export class AutocompleteComponent implements OnInit {
   @Output()
   selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
 
-  @ViewChild('autocompleteList') autocompleteList!: ElementRef;
+  @ViewChild('autocompleteList')
+  autocompleteList: any;
 
-  filterText = '';
-  focusedIndex = 0;
+  itemsInView: Item[] = [];
+  startIndex: number = 0;
+  endIndex: number = 0;
+  filterText: string = '';
+  focusedIndex: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.render();
   }
 
-  @HostListener("document:click", ["$event"])
-  clickOutside(event: MouseEvent): void {
-    if (event.target !== this.autocompleteList.nativeElement) {
-      this.resetSearch();
+  ngOnChanges(): void {
+    this.render();
+  }
+
+  render(): void {
+    let scrollTop = this.autocompleteList?.nativeElement.scrollTop;
+    let height = this.autocompleteList?.nativeElement.clientHeight;
+    this.startIndex = Math.floor(scrollTop / this.rowHeight);
+    this.endIndex = Math.ceil((scrollTop + height) / this.rowHeight);
+    if (this.items) {
+      this.itemsInView = this.items.slice(this.startIndex, this.endIndex);
     }
   }
 
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
-    if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
-    else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
-    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
+    if (event.code === "ArrowDown") {
+      if (this.items[this.items.length - 1].sku !== this.itemsInView[this.itemsInView.length - 1].sku)
+        this.autocompleteList.nativeElement.scrollTop += this.rowHeight;
+      else
+        this.focusedIndex++;
+    }
+    else if (event.code === "ArrowUp") {
+      if (this.autocompleteList.nativeElement.scrollTop > 0)
+        this.autocompleteList.nativeElement.scrollTop -= this.rowHeight;
+      else this.focusedIndex--;
+    }
+    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.itemsInView[this.focusedIndex]);
     else if (event.code === "Escape") this.resetSearch();
     else {
       this.focusedIndex = 0;
       this.fetchFilteredItems();
     }
+    this.render();
   }
 
   resetSearch() {
