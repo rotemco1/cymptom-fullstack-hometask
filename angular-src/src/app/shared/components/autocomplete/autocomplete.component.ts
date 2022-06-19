@@ -55,13 +55,12 @@ export class AutocompleteComponent implements OnInit, OnChanges {
     if (event.code === "ArrowDown") {
       if (this.items[this.items.length - 1].sku !== this.itemsInView[this.itemsInView.length - 1].sku)
         this.autocompleteList.nativeElement.scrollTop += this.rowHeight;
-      else
-        this.focusedIndex++;
+      else this.focusedIndex < this.itemsInView.length - 1 ? this.focusedIndex++ : this.focusedIndex = 0;
     }
     else if (event.code === "ArrowUp") {
       if (this.autocompleteList.nativeElement.scrollTop > 0)
         this.autocompleteList.nativeElement.scrollTop -= this.rowHeight;
-      else this.focusedIndex--;
+      else if (this.focusedIndex > this.startIndex) this.focusedIndex--;
     }
     else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.itemsInView[this.focusedIndex]);
     else if (event.code === "Escape") this.resetSearch();
