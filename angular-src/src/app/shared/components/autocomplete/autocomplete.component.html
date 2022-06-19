@@ -1,7 +1,7 @@
 <div class="autocomplete-container">
     <input type="text" list="items-list" [(ngModel)]="filterText" class="autocomplete-input"
         placeholder="Search for products">
-    <div #autocompleteList *ngIf="filterText" class="items-list-container custom-scrollbar" (scroll)="render()">
+    <div #autocompleteList [ngClass]="{'hidden': !filterText }" class="items-list-container custom-scrollbar" (scroll)="render()">
         <div class="list-view" [style.top]="(startIndex * rowHeight) + 'px'">
             <div class="list-item" *ngFor="let item of itemsInView; let i = index" [appFocused]="i === focusedIndex"
                 [ngClass]="{'focused-item': focusedIndex === i }" (mouseover)="focusedIndex = i"
