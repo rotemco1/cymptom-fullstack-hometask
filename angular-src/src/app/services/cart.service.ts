@@ -5,6 +5,7 @@ import { Item } from "../../../../shared/interfaces";
 export class CartService {
     private _cart: Item[] = [];
     private _totalPrice = 0;
+    private _itemIndex = 0;
 
     constructor() { }
 
@@ -22,7 +23,10 @@ export class CartService {
     }
 
     removeFromCart(item: Item) {
-        this._cart = this._cart.filter(i => i !== item);
+        // For removing only one instance of this item
+        this._itemIndex = this._cart.indexOf(item);
+        if (this._itemIndex > -1)
+            this._cart.splice(this._itemIndex, 1);
         this._totalPrice -= item.price;
     }
 }
