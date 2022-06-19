@@ -4,7 +4,7 @@
   "description": "cymptom fullstack hometask",
   "scripts": {
     "test": "mocha out/test",
-    "start": "node out/index.js",
+    "start": "node out/src/index.js",
     "debug": "nodemon --ignore angular-src --exec ./node_modules/.bin/ts-node -- ./src/index.ts -debug"
   },
   "repository": {

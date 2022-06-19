@@ -22,18 +22,18 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   fetchItemsByFilter(filter: string): void {
-    this.searchedItems$.next(filter);
-    this.filteredItems$ = this.searchedItems$.pipe(
-      debounceTime(1000),
-      switchMap(() =>
-        this.shopApiService.getItemsByFilter(filter)
-          .pipe(
-            takeUntil(
-              this.searchedItems$.pipe(skip(1))
+      this.searchedItems$.next(filter);
+      this.filteredItems$ = this.searchedItems$.pipe(
+        debounceTime(1000),
+        switchMap(() =>
+          this.shopApiService.getItemsByFilter(filter)
+            .pipe(
+              takeUntil(
+                this.searchedItems$.pipe(skip(1))
+              )
             )
-          )
-      )
-    );
+        )
+      );
   }
 
   addToCart(item: Item): void {
