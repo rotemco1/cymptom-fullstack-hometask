@@ -8,7 +8,7 @@ export class FocusedDirective {
   @Input()
   set appFocused(value: boolean) {
     if (value) {
-      this.elementRef.nativeElement.scrollIntoViewIfNeeded(false);
+      this.elementRef.nativeElement.focus();
     }
   }
 

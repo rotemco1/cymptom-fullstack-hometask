@@ -54,8 +54,8 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   checkNavigation(event: KeyboardEvent): void {
     this.render();
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
-    else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
-    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
+    else if (event.code === "ArrowDown" && this.focusedIndex < this.itemsInView.length - 1) this.focusedIndex++;
+    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.itemsInView[this.focusedIndex]);
     else if (event.code === "Escape") this.resetSearch();
     else {
       this.focusedIndex = 0;
