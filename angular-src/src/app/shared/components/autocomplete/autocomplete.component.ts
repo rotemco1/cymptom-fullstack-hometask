@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -22,7 +22,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
 
   @ViewChild('autocompleteList')
-  autocompleteList: any;
+  autocompleteList!: ElementRef;
 
   itemsInView: Item[] = [];
   startIndex: number = 0;
