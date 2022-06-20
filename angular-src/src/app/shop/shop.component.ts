@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, skip, switchMap, takeUntil } from 'rxjs/operators';
+import { skip, switchMap, takeUntil } from 'rxjs/operators';
 import { Item } from '../../../../shared/interfaces';
 import { CartService } from '../services/cart.service';
 import { ShopApiService } from '../services/shop-api.service';
@@ -22,17 +22,22 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   fetchItemsByFilter(filter: string): void {
+    if (filter) {
       this.searchedItems$.next(filter);
       this.filteredItems$ = this.searchedItems$.pipe(
+        // For unsubscribe the previous observable
         switchMap(() =>
           this.shopApiService.getItemsByFilter(filter)
             .pipe(
+              // For completeing the observable at the time we get new filter input
               takeUntil(
+                // For "skiping" the last value of our searchedItems$ observable
                 this.searchedItems$.pipe(skip(1))
               )
             )
         )
       );
+    }
   }
 
   addToCart(item: Item): void {

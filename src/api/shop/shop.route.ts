@@ -10,7 +10,7 @@ router.route("/")
             if (req.query.filter)
                 res.status(200).json(await shopController.productsByFilter(req.query.filter.toString()));
             else
-                res.status(404).json('No products found');
+                res.status(400).json('No filter was provided');
         } catch (err) {
             next(err);
         }
