@@ -4,8 +4,8 @@
     <div #autocompleteList [ngClass]="{'hidden': !filterText || !items.length }"
         class="items-list-container custom-scrollbar" (scroll)="render()">
         <div class="list-view" [style.top]="(startIndex * rowHeight) + 'px'">
-            <div class="list-item" *ngFor="let item of itemsInView; let i = index" [appFocused]="i === focusedIndex"
-                [ngClass]="{'focused-item': focusedIndex === i }" (mouseover)="focusedIndex = i"
+            <div *ngFor="let item of itemsInView; let i = index" [appFocused]="i === focusedIndex"
+                [ngClass]="{'focused-item': focusedIndex === i, 'list-item': true }" (mouseover)="focusedIndex = i"
                 (click)="onSelect(item)" [style.height]="rowHeight + 'px'" [style.line-height]="rowHeight + 'px'">
                 <app-default-image [src]="item.image"></app-default-image>
                 <label class="item-name">{{item.name}}</label>
