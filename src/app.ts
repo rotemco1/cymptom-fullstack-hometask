@@ -11,7 +11,7 @@ export class App {
     }
 
     init(port: string | number) {
-         this.express = express();
+        this.express = express();
         this.express.use(addHeaders);
         this.express.use('/api', this.routes);
 

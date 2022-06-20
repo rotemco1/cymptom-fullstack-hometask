@@ -7,7 +7,10 @@ import shopController from "./shop.controller";
 router.route("/")
     .get(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            res.status(200).json(await shopController.productsByFilter(req.query.filter.toString()));
+            if (req.query.filter)
+                res.status(200).json(await shopController.productsByFilter(req.query.filter.toString()));
+            else
+                res.status(404).json('No products found');
         } catch (err) {
             next(err);
         }
