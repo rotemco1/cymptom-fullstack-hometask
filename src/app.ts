@@ -10,7 +10,7 @@ export class App {
         this.routes = routes;
     }
 
-    init(port: string | number) {
+    init(port: string | number = 3000) {
         this.express = express();
         this.express.use(addHeaders);
         this.express.use('/api', this.routes);

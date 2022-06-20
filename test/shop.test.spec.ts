@@ -3,7 +3,9 @@ import shopController from '../src/api/shop/shop.controller';
 import { Item } from '../shared/interfaces';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-import app from '../src/app';
+const should = chai.should();
+import * as express from 'express';
+import routes from '../src/api/app.route';
 
 chai.use(chaiHttp);
 
@@ -57,10 +59,26 @@ describe('productsByFilter', () => {
 });
 
 describe('GET /:filter', () => {
-    it('should get products by filter text', (done) => {
-        chai.request(app).get('/api/shop?filter=')
+    it('should have bad request error', (done) => {
+        const app = express();
+        app.use('/api', routes);
+        chai.request(app.listen(3000)).get('/api/shop?filter=')
             .end((err, res) => {
-                res.should.have.status(404);
+                if (err) return done(err);
+                res.should.have.status(400);
+                done();
+            });
+    });
+
+    it('should get products by filter text', (done) => {
+        const app = express();
+        app.use('/api', routes);
+        chai.request(app.listen(3000)).get('/api/shop?filter=cleaner a')
+            .end((err, res) => {
+                if (err) return done(err);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(6);
                 done();
             });
     })
