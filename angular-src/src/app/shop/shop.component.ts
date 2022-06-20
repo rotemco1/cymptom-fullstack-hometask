@@ -25,10 +25,13 @@ export class ShopComponent implements OnInit, OnDestroy {
     if (filter) {
       this.searchedItems$.next(filter);
       this.filteredItems$ = this.searchedItems$.pipe(
+        // For unsubscribe the previous observable
         switchMap(() =>
           this.shopApiService.getItemsByFilter(filter)
             .pipe(
+              // For completeing the observable at the time we get new filter input
               takeUntil(
+                // For "skiping" the last value of our searchedItems$ observable
                 this.searchedItems$.pipe(skip(1))
               )
             )
