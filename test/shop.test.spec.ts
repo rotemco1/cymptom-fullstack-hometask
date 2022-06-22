@@ -58,14 +58,14 @@ describe('productsByFilter', () => {
     });
 });
 
-describe('GET /:filter', () => {
+describe('GET /:filter/:limit?/:offset?', () => {
     it('should have bad request error', (done) => {
         const app = express();
         app.use('/api', routes);
-        chai.request(app.listen(3000)).get('/api/shop?filter=')
+        chai.request(app.listen(3000)).get('/api/shop/')
             .end((err, res) => {
                 if (err) return done(err);
-                res.should.have.status(400);
+                res.should.have.status(404);
                 done();
             });
     });
@@ -73,7 +73,7 @@ describe('GET /:filter', () => {
     it('should get products by filter text', (done) => {
         const app = express();
         app.use('/api', routes);
-        chai.request(app.listen(3000)).get('/api/shop?filter=cleaner a')
+        chai.request(app.listen(3000)).get('/api/shop/cleaner a')
             .end((err, res) => {
                 if (err) return done(err);
                 res.should.have.status(200);
@@ -83,7 +83,7 @@ describe('GET /:filter', () => {
             });
     });
 
-    it('should get products by filter text with given limit and offset', (done) => {
+    it('should get products by filter text with given limit', (done) => {
         const expectedArray: Item[] = [
             {
                 "sku": 9438102,
@@ -142,7 +142,7 @@ describe('GET /:filter', () => {
         ];
         const app = express();
         app.use('/api', routes);
-        chai.request(app.listen(3000)).get('/api/shop?filter=cleaner a&offset=4')
+        chai.request(app.listen(3000)).get('/api/shop/cleaner a/4')
             .end((err, res) => {
                 if (err) return done(err);
                 res.should.have.status(200);
@@ -153,10 +153,10 @@ describe('GET /:filter', () => {
             });
     });
 
-    it('should get products by filter text with default limit and offset', (done) => {
+    it('should get products by case sensitive filter text with default limit and offset', (done) => {
         const app = express();
         app.use('/api', routes);
-        chai.request(app.listen(3000)).get('/api/shop?filter=A')
+        chai.request(app.listen(3000)).get('/api/shop/A')
             .end((err, res) => {
                 if (err) return done(err);
                 res.should.have.status(200);
@@ -166,10 +166,10 @@ describe('GET /:filter', () => {
             });
     });
 
-    it('should get products by filter text with given limit', (done) => {
+    it('should get products by filter text with given limit and offset', (done) => {
         const app = express();
         app.use('/api', routes);
-        chai.request(app.listen(3000)).get('/api/shop?filter=A&limit=5')
+        chai.request(app.listen(3000)).get('/api/shop/A/5')
             .end((err, res) => {
                 if (err) return done(err);
                 res.should.have.status(200);
