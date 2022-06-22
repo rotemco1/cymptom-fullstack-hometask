@@ -21,10 +21,10 @@ describe('ShopComponent', () => {
       imports: [HttpClientModule],
       providers: [
         ShopApiService,
-      {
-        provide: CartService,
-        useClass: MockCartService
-      }]
+        {
+          provide: CartService,
+          useClass: MockCartService
+        }]
     })
       .compileComponents();
 
@@ -35,14 +35,13 @@ describe('ShopComponent', () => {
     cartService = TestBed.inject(CartService)
   });
 
-  it('should find items with the filter text', () => {
-    component.fetchItemsByFilter('Duracell');
-    component.filteredItems$.subscribe(items => {
+  it('should fetch items with the filter text', async () => {
+    shopApiService.getItemsByFilter('Duracell - AAA Batteries (4', 20, 0).toPromise().then(items => {
       fixture.detectChanges();
       expect(items).toContain(item);
     })
   });
-  
+
   describe('addToCart', () => {
     it('should add the item to the cart', () => {
       component.addToCart(item);

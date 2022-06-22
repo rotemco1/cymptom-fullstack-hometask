@@ -17,7 +17,7 @@ export class ShopComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async fetchItemsByFilter(event: { filterText: string, limit: number, offset: number }): Promise<void> {
+  fetchItemsByFilter(event: { filterText: string, limit: number, offset: number }): void {
     if (event.offset === 0) this.filteredItems = [];
     if (event.filterText) {
       this.shopApiService.getItemsByFilter(event.filterText, event.limit, event.offset)

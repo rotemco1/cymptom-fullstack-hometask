@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Item } from "../../../../shared/interfaces";
@@ -13,6 +13,8 @@ export class ShopApiService {
     }
 
     getItemsByFilter(filter: string, limit: number, offset: number): Observable<Item[]> {
-        return this.http.get(`${this.getEndpoint()}?filter=${filter}&limit=${limit}&offset=${offset}`) as Observable<Item[]>;
+        const params = new HttpParams();
+        // Use params for filter text edge cases
+        return this.http.get(`${this.getEndpoint()}/${filter}/${limit}/${offset}`) as Observable<Item[]>;
     }
 }
