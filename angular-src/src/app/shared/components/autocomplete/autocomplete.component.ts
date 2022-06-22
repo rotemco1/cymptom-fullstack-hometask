@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -7,7 +7,7 @@ import { Item } from '../../../../../../shared/interfaces';
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent implements OnInit, OnChanges {
+export class AutocompleteComponent implements OnInit {
 
   @Input()
   items: Item[] = [];
@@ -30,30 +30,22 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.items);
-  }
-
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
     else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
-    else if (event.code === "Enter" || event.code === "NumpadEnter") {
-      console.log(this.focusedIndex);
-      this.items[this.focusedIndex];
-      this.onSelect(this.items[this.focusedIndex]);
-    }
+    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
     else if (event.code === "Escape") {
       this.filterText = '';
       this.resetSearch();
     }
     else {
-      this.focusedIndex = 0;
-      this.fetchFilteredItems();
+      this.resetSearch();
     }
   }
 
   onScroll(event: any) {
+    // Load more items when we reach to the end of autocomplete container
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
       this.loadMoreItems();
     }

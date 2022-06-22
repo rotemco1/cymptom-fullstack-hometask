@@ -1,9 +1,9 @@
 <div class="autocomplete-container">
     <input type="text" list="items-list" [(ngModel)]="filterText" class="autocomplete-input"
-        placeholder="Search for products" (change)="resetSearch()">
+        placeholder="Search for products">
     <div *ngIf="items.length" class="items-list-container custom-scrollbar"
         (scroll)="onScroll($event)">
-        <div *ngFor="let item of items; let i = index" [appFocused]="i === focusedIndex"
+        <div *ngFor="let item of items;i let i = index" [appFocused]="i == focusedIndex"
             [ngClass]="{'focused-item': focusedIndex === i, 'list-item': true }" (mouseover)="focusedIndex = i"
             (click)="onSelect(item)">
             <app-default-image [src]="item.image"></app-default-image>
