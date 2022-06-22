@@ -1,16 +1,13 @@
 <div class="autocomplete-container">
     <input type="text" list="items-list" [(ngModel)]="filterText" class="autocomplete-input"
         placeholder="Search for products">
-    <div #autocompleteList [ngClass]="{'hidden': !filterText || !items.length }"
-        class="items-list-container custom-scrollbar" (scroll)="render()">
-        <div class="list-view" [style.top]="(startIndex * rowHeight) + 'px'">
-            <div *ngFor="let item of itemsInView; let i = index" [appFocused]="i === focusedIndex"
-                [ngClass]="{'focused-item': focusedIndex === i, 'list-item': true }" (mouseover)="focusedIndex = i"
-                (click)="onSelect(item)" [style.height]="rowHeight + 'px'" [style.line-height]="rowHeight + 'px'">
-                <app-default-image [src]="item.image"></app-default-image>
-                <label class="item-name">{{item.name}}</label>
-            </div>
+    <div *ngIf="items.length" class="items-list-container custom-scrollbar"
+        (scroll)="onScroll($event)">
+        <div *ngFor="let item of items;i let i = index" [appFocused]="i == focusedIndex"
+            [ngClass]="{'focused-item': focusedIndex === i, 'list-item': true }" (mouseover)="focusedIndex = i"
+            (click)="onSelect(item)">
+            <app-default-image [src]="item.image"></app-default-image>
+            <label class="item-name">{{item.name}}</label>
         </div>
-        <div class="list-filler" [style.height]="(items.length * rowHeight) + 'px'"></div>
     </div>
 </div>

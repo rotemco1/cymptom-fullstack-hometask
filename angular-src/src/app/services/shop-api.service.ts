@@ -12,7 +12,7 @@ export class ShopApiService {
         return `${environment.serverUrl}/api/shop`
     }
 
-    getItemsByFilter(filter: string): Observable<Item[]> {
-        return this.http.get(`${this.getEndpoint()}?filter=${filter}`) as Observable<Item[]>;
+    getItemsByFilter(filter: string, limit: number, offset: number): Observable<Item[]> {
+        return this.http.get(`${this.getEndpoint()}?filter=${filter}&limit=${limit}&offset=${offset}`) as Observable<Item[]>;
     }
 }
