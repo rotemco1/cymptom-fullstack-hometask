@@ -1,16 +1,15 @@
 import { Router, Request, Response, NextFunction } from "express";
-import * as config from '../../config/config.json';
 
 const router = Router();
 
 import shopController from "./shop.controller";
 
-router.route("/")
+router.route("/:filter/:limit/:offset")
     .get(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            if (req.query.filter)
+            if (req.params.filter)
                 res.status(200).json(await shopController.productsByFilter(
-                    req.query.filter.toString(), +req.query.limit, +req.query.offset));
+                    req.params.filter.toString(), +req.params.limit, +req.params.offset));
             else
                 res.status(400).json('No filter was provided');
         } catch (err) {

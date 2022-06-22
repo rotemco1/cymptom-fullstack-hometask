@@ -67,6 +67,7 @@ export class AutocompleteComponent implements OnInit {
   }
 
   onSelect(selectedItem: Item) {
-    this.selectedItem.emit(selectedItem);
+    if (selectedItem)
+      this.selectedItem.emit(selectedItem);
   }
 }
