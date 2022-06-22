@@ -13,6 +13,7 @@ import { CartComponent } from './shop/cart/cart.component';
 import { DefaultImageComponent } from './shared/components/default-image/default-image.component';
 import { CartService } from './services/cart.service';
 import { HeaderComponent } from './header/header.component';
+import { ShopService } from './services/shop.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HeaderComponent } from './header/header.component';
   ],
   providers: [
     ShopApiService,
-    CartService
+    CartService,
+    ShopService
   ],
   bootstrap: [AppComponent]
 })

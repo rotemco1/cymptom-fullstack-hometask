@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -13,77 +13,61 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   items: Item[] = [];
 
   @Input()
-  rowHeight: number = 30;
+  numItemsToShow: number = 20;
 
   @Output()
-  filteredItems: EventEmitter<string> = new EventEmitter<string>();
+  filteredItems: EventEmitter<{ filterText: string, limit: number, offset: number }> = new EventEmitter<{ filterText: string, limit: number, offset: number }>();
 
   @Output()
   selectedItem: EventEmitter<Item> = new EventEmitter<Item>();
 
-  @ViewChild('autocompleteList')
-  autocompleteList!: ElementRef;
-
-  itemsInView: Item[] = [];
-  startIndex: number = 0;
-  endIndex: number = 0;
   filterText: string = '';
   focusedIndex: number = 0;
+  offset = 0;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.render();
   }
 
   ngOnChanges(): void {
-    this.render();
-  }
-
-  // Filtering the items array we want to render and show by any change caused by the user
-  // Changes as: scrolling, navigation keys, new filter text, etc... which may affect the items we want to show
-  render(): void {
-    let scrollTop = this.autocompleteList?.nativeElement.scrollTop;
-    let height = this.autocompleteList?.nativeElement.clientHeight;
-    this.startIndex = Math.floor(scrollTop / this.rowHeight);
-    this.endIndex = Math.ceil((scrollTop + height) / this.rowHeight);
-    if (this.items) {
-      this.itemsInView = this.items.slice(this.startIndex, this.endIndex);
-    }
+    console.log(this.items.length);
   }
 
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
-    if (event.code === "ArrowDown") {
-      // In case this isn't the last item to show update the scrollTop for render next (rowHeight) new items
-      if (this.items[this.items.length - 1].sku !== this.itemsInView[this.itemsInView.length - 1].sku)
-        this.autocompleteList.nativeElement.scrollTop += this.rowHeight;
-      // For navigation down to the last items to show
-      else if (this.focusedIndex < this.itemsInView.length - 1) this.focusedIndex++;
+    if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
+    else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
+    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
+    else if (event.code === "Escape") {
+      this.filterText = '';
+      this.resetSearch();
     }
-    else if (event.code === "ArrowUp") {
-      // In case this isn't the first item to show update the scrollTop for render previous (rowHeight) new items
-      if (this.autocompleteList.nativeElement.scrollTop > 0)
-        this.autocompleteList.nativeElement.scrollTop -= this.rowHeight;
-      // For navigation up to the first items to show
-      else if (this.focusedIndex > this.startIndex) this.focusedIndex--;
-    }
-    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.itemsInView[this.focusedIndex]);
-    else if (event.code === "Escape") this.resetSearch();
     else {
       this.focusedIndex = 0;
       this.fetchFilteredItems();
     }
-    this.render();
+  }
+
+  onScroll(event: any) {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      this.loadMore();
+    }
+  }
+
+  loadMore() {
+    this.offset += this.numItemsToShow;
+    this.fetchFilteredItems();
   }
 
   resetSearch() {
-    this.filterText = '';
     this.focusedIndex = 0;
+    this.offset = 0;
+    this.fetchFilteredItems();
   }
 
   fetchFilteredItems(): void {
-    this.filteredItems.emit(this.filterText);
+    this.filteredItems.emit({ filterText: this.filterText, limit: this.numItemsToShow, offset: this.offset });
   }
 
   onSelect(selectedItem: Item) {

@@ -8,7 +8,8 @@ router.route("/")
     .get(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             if (req.query.filter)
-                res.status(200).json(await shopController.productsByFilter(req.query.filter.toString()));
+                res.status(200).json(await shopController.productsByFilter(
+                    req.query.filter.toString(), +req.query.limit, +req.query.offset));
             else
                 res.status(400).json('No filter was provided');
         } catch (err) {
