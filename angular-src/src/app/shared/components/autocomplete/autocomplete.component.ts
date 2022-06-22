@@ -38,7 +38,11 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   checkNavigation(event: KeyboardEvent): void {
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
     else if (event.code === "ArrowDown" && this.focusedIndex < this.items.length - 1) this.focusedIndex++;
-    else if (event.code === "Enter" || event.code === "NumpadEnter") this.onSelect(this.items[this.focusedIndex]);
+    else if (event.code === "Enter" || event.code === "NumpadEnter") {
+      console.log(this.focusedIndex);
+      this.items[this.focusedIndex];
+      this.onSelect(this.items[this.focusedIndex]);
+    }
     else if (event.code === "Escape") {
       this.filterText = '';
       this.resetSearch();
@@ -71,6 +75,6 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   }
 
   onSelect(selectedItem: Item) {
-    this.selectedItem.emit(selectedItem)
+    this.selectedItem.emit(selectedItem);
   }
 }

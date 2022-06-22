@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../../shared/interfaces';
 import { CartService } from '../services/cart.service';
 import { ShopApiService } from '../services/shop-api.service';
-import { ShopService } from '../services/shop.service';
 
 @Component({
   selector: 'app-shop',
@@ -13,7 +12,6 @@ export class ShopComponent implements OnInit {
   filteredItems: Item[] = [];
 
   constructor(private readonly shopApiService: ShopApiService,
-    public readonly shopService: ShopService,
     private readonly cartService: CartService) { }
 
   ngOnInit(): void {
