@@ -13,7 +13,8 @@
 }
 
 .items-list-container {
-    height: 300px;
+    height: max-content;
+    max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 1;
@@ -28,20 +29,6 @@
 
 .hidden {
     display: none;
-}
-
-.list-view {
-    position: absolute;
-    left: 0;
-    right: 0;
-}
-
-.list-filler {
-    position: absolute;
-    top: 0;
-    right: -1px;
-    width: 1px;
-    box-sizing: border-box;
 }
 
 .focused-item {

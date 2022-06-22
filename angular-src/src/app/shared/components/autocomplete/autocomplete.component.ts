@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -30,8 +30,8 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  ngOnChanges(): void {
-    console.log(this.items.length);
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.items);
   }
 
   @HostListener("document:keyup", ["$event"])
@@ -51,11 +51,11 @@ export class AutocompleteComponent implements OnInit, OnChanges {
 
   onScroll(event: any) {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      this.loadMore();
+      this.loadMoreItems();
     }
   }
 
-  loadMore() {
+  loadMoreItems() {
     this.offset += this.numItemsToShow;
     this.fetchFilteredItems();
   }
