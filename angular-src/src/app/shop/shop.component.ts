@@ -1,6 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, skip, switchMap, takeUntil } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../../shared/interfaces';
 import { CartService } from '../services/cart.service';
 import { ShopApiService } from '../services/shop-api.service';
@@ -10,10 +8,8 @@ import { ShopApiService } from '../services/shop-api.service';
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements OnInit, OnDestroy {
-
-  searchedItems$ = new BehaviorSubject('');
-  filteredItems$: Observable<Item[]> = new Observable<Item[]>;
+export class ShopComponent implements OnInit {
+  filteredItems: Item[] = [];
 
   constructor(private readonly shopApiService: ShopApiService,
     private readonly cartService: CartService) { }
@@ -21,25 +17,15 @@ export class ShopComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  fetchItemsByFilter(filter: string): void {
-      this.searchedItems$.next(filter);
-      this.filteredItems$ = this.searchedItems$.pipe(
-        switchMap(() =>
-          this.shopApiService.getItemsByFilter(filter)
-            .pipe(
-              takeUntil(
-                this.searchedItems$.pipe(skip(1))
-              )
-            )
-        )
-      );
+  async fetchItemsByFilter(event: { filterText: string, limit: number, offset: number }): Promise<void> {
+    if (event.offset === 0) this.filteredItems = [];
+    if (event.filterText) {
+      this.shopApiService.getItemsByFilter(event.filterText, event.limit, event.offset)
+        .toPromise().then(items => this.filteredItems = this.filteredItems.concat(items));
+    }
   }
 
   addToCart(item: Item): void {
     this.cartService.addToCart(item);
-  }
-
-  ngOnDestroy(): void {
-    this.searchedItems$.unsubscribe();
   }
 }
