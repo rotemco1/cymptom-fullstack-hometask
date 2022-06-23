@@ -23,7 +23,7 @@ export class AutocompleteComponent implements OnInit {
 
   filterText: string = '';
   focusedIndex: number = 0;
-  offset = 0;
+  offset: number = 0;
 
   constructor() { }
 
