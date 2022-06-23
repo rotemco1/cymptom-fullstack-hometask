@@ -83,7 +83,7 @@ describe('GET /:filter/:limit?/:offset?', () => {
             });
     });
 
-    it('should get products by filter text with string limit and given offset', (done) => {
+    it('should get products by filter text with number as string limit and given offset', (done) => {
         const app = express();
         app.use('/api', routes);
         chai.request(app.listen(3000)).get(`/api/shop/cleaner a/'2'/4`)
@@ -92,6 +92,19 @@ describe('GET /:filter/:limit?/:offset?', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.be.eql(2);
+                done();
+            });
+    });
+
+    it('should get products by filter text with string limit and given offset', (done) => {
+        const app = express();
+        app.use('/api', routes);
+        chai.request(app.listen(3000)).get(`/api/shop/cleaner a/c/0`)
+            .end((err, res) => {
+                if (err) return done(err);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(6);
                 done();
             });
     });
@@ -122,7 +135,7 @@ describe('GET /:filter/:limit?/:offset?', () => {
             });
     });
 
-    it('should get products by filter text with given limit and offset', (done) => {
+    it('should get products by filter text with given limit', (done) => {
         const app = express();
         app.use('/api', routes);
         chai.request(app.listen(3000)).get('/api/shop/A/5')
@@ -131,6 +144,31 @@ describe('GET /:filter/:limit?/:offset?', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
                 res.body.length.should.be.eql(5);
+                done();
+            });
+    });
+
+    it('should get products by filter text like query with given limit', (done) => {
+        const app = express();
+        app.use('/api', routes);
+        chai.request(app.listen(3000)).get('/api/shop/av&limit=/5/0')
+            .end((err, res) => {
+                if (err) return done(err);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+                done();
+            });
+    });
+ 
+    it('should get products by filter text like param with given limit', (done) => {
+        const app = express();
+        const uniqueFilterText: string = 'hjh\/c';
+        app.use('/api', routes);
+        chai.request(app.listen(3000)).get(`/api/shop/${uniqueFilterText}/5/0`)
+            .end((err, res) => {
+                if (err) return done(err);
+                res.should.have.status(404);
                 done();
             });
     });

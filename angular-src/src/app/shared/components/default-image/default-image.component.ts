@@ -17,7 +17,9 @@ export class DefaultImageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  defaultSrc(event: any) {
-    event.target.src = this.defaultImage;
+  defaultSrc(event: Event) {
+    const { target } = event;
+    if (target)
+      (target as HTMLImageElement).src = this.defaultImage;
   }
 }

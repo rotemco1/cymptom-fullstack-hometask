@@ -30,6 +30,7 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Handle new filter text and keyboard navigation
   @HostListener("document:keyup", ["$event"])
   checkNavigation(event: KeyboardEvent): void {
     if (event.code === "ArrowUp" && this.focusedIndex > 0) this.focusedIndex--;
@@ -44,11 +45,13 @@ export class AutocompleteComponent implements OnInit {
     }
   }
 
-  onScroll(event: any) {
-    // Load more items when we reach to the end of autocomplete container
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      this.loadMoreItems();
-    }
+  onScroll(event: Event) {
+    const { target } = event;
+    if (target)
+      // Load more items when we reach to the end of autocomplete container
+      if ((target as HTMLDivElement).offsetHeight + (target as HTMLDivElement).scrollTop >= (target as HTMLDivElement).scrollHeight) {
+        this.loadMoreItems();
+      }
   }
 
   loadMoreItems() {
