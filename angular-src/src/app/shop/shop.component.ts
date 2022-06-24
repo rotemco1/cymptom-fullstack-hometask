@@ -20,9 +20,9 @@ export class ShopComponent implements OnInit {
   fetchItemsByFilter(event: { filterText: string, limit: number, offset: number }): void {
     if (event.offset === 0) this.filteredItems = [];
     if (event.filterText) {
-      this.shopApiService.getItemsByFilter(event.filterText, event.limit, event.offset).toPromise()
-        .then(items => this.filteredItems = this.filteredItems.concat(items))
-        .catch(err => console.error(err));
+      this.shopApiService.getItemsByFilter(event.filterText, event.limit, event.offset).subscribe(
+        items => this.filteredItems = this.filteredItems.concat(items),
+        err => console.error(err));
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Item } from '../../../../../../shared/interfaces';
 
 
@@ -7,7 +7,7 @@ import { Item } from '../../../../../../shared/interfaces';
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit,OnChanges {
 
   @Input()
   items: Item[] = [];
@@ -23,10 +23,15 @@ export class AutocompleteComponent implements OnInit {
 
   filterText: string = '';
   focusedIndex: number = 0;
+  scrolled: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    this.scrolled = false;
   }
 
   // Handle new filter text and keyboard navigation
@@ -48,7 +53,8 @@ export class AutocompleteComponent implements OnInit {
     const { target } = event;
     if (target)
       // Load more items when we reach to the end of autocomplete container
-      if ((target as HTMLDivElement).offsetHeight + (target as HTMLDivElement).scrollTop >= (target as HTMLDivElement).scrollHeight) {
+      if (!this.scrolled && (target as HTMLDivElement).offsetHeight + (target as HTMLDivElement).scrollTop >= (target as HTMLDivElement).scrollHeight) {
+        this.scrolled = true;
         this.loadMoreItems();
       }
   }
@@ -64,6 +70,7 @@ export class AutocompleteComponent implements OnInit {
   }
 
   fetchFilteredItems(): void {
+    // Offset as this.items.length for case of error in fetching prevoius chunk
     this.filteredItems.emit({ filterText: this.filterText, limit: this.numItemsToShow, offset: this.items.length });
   }
 
