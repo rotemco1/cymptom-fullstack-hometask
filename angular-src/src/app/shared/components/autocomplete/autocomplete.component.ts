@@ -23,7 +23,6 @@ export class AutocompleteComponent implements OnInit {
 
   filterText: string = '';
   focusedIndex: number = 0;
-  offset: number = 0;
 
   constructor() { }
 
@@ -55,18 +54,17 @@ export class AutocompleteComponent implements OnInit {
   }
 
   loadMoreItems() {
-    this.offset += this.numItemsToShow;
     this.fetchFilteredItems();
   }
 
   resetSearch() {
     this.focusedIndex = 0;
-    this.offset = 0;
+    this.items = [];
     this.fetchFilteredItems();
   }
 
   fetchFilteredItems(): void {
-    this.filteredItems.emit({ filterText: this.filterText, limit: this.numItemsToShow, offset: this.offset });
+    this.filteredItems.emit({ filterText: this.filterText, limit: this.numItemsToShow, offset: this.items.length });
   }
 
   onSelect(selectedItem: Item) {
